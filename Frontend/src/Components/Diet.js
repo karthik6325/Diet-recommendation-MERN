@@ -21,6 +21,7 @@ const Select = ({ label, id, children, ...rest }) => (
 
 const Diet = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [cameFromHealthy, setCameFromHealthy] = useState(false);
 
   const [user, setUser] = useState({
     Age: "",
@@ -130,112 +131,112 @@ const Diet = () => {
             </form>
           </div>
         );
-      case 4:
-        // Render additional details based on diet type preference
-        const dietType = user.Diet_type;
-        return (
-          <div>
-            <h1>Additional Details for {dietType}</h1>
-            <form onChange={handleChange}>
-              {/* Additional fields based on diet type */}
-              {dietType === "weight_gain" && (
-                <div>
-                  <Field
-                    label="Desired weight gain"
-                    id="WeightGainField"
-                    name="WeightGainField"
-                  />
-                  <Field
-                    label="Days to achieve your goal"
-                    id="WeightGainGoal"
-                    name="WeightGainGoal"
-                  />
-                  <Select
-                    label="Current activity level"
-                    id="Activity_level"
-                    name="Activity_level"
-                  >
-                    <option value="1">Sedentary (Little or no exercise)</option>
-                    <option value="2">Lightly active (Light exercise/sports 3-5 days a week)</option>
-                    <option value="3">Moderately active (Moderate exercise/sports 3-5 days a week)</option>
-                    <option value="4">Very active (Hard exercise/sports 6-7 days a week)</option>
-                    <option value="5">Extra active (Hard exercise/sports 6-7 days a week, plus physical job)</option>
-                  </Select>
-                </div>
-              )}
-              {dietType === "weight_loss" && (
-                <div>
-                  <Field
-                    label="Desired weight loss"
-                    id="WeightLossField"
-                    name="WeightLossField"
-                  />
-                  <Field
-                    label="Days to achieve your goal"
-                    id="WeightGainGoal"
-                    name="WeightGainGoal"
-                  />
-                  <Select
-                    label="Current activity level"
-                    id="Activity_level"
-                    name="Activity_level"
-                  >
-                    <option value="1">Sedentary (Little or no exercise)</option>
-                    <option value="2">Lightly active (Light exercise/sports 3-5 days a week)</option>
-                    <option value="3">Moderately active (Moderate exercise/sports 3-5 days a week)</option>
-                    <option value="4">Very active (Hard exercise/sports 6-7 days a week)</option>
-                    <option value="5">Extra active (Hard exercise/sports 6-7 days a week, plus physical job)</option>
-                  </Select>
-                </div>
-              )}
-              {/* Common fields */}
+        case 4:
+          // Check if Diet_type is null and skip to next page
+          if (user.Diet_type === "healthy") {
+            setCameFromHealthy(true);
+            return null;
+          }
+        
+          // Render additional details based on diet type preference
+          const dietType = user.Diet_type;
+          return (
+            <div>
+              <h1>Additional Details for {dietType}</h1>
+              <form onChange={handleChange}>
+                {/* Additional fields based on diet type */}
+                {dietType === "weight_gain" && (
+                  <div>
+                    <Field
+                      label="Desired weight gain"
+                      id="WeightGainField"
+                      name="WeightGainField"
+                    />
+                    <Field
+                      label="Days to achieve your goal"
+                      id="WeightGainGoal"
+                      name="WeightGainGoal"
+                    />
+                    <Select
+                      label="Current activity level"
+                      id="Activity_level"
+                      name="Activity_level"
+                    >
+                      <option value="1">Sedentary (Little or no exercise)</option>
+                      <option value="2">Lightly active (Light exercise/sports 3-5 days a week)</option>
+                      <option value="3">Moderately active (Moderate exercise/sports 3-5 days a week)</option>
+                      <option value="4">Very active (Hard exercise/sports 6-7 days a week)</option>
+                      <option value="5">Extra active (Hard exercise/sports 6-7 days a week, plus physical job)</option>
+                    </Select>
+                  </div>
+                )}
+                {dietType === "weight_loss" && (
+                  <div>
+                    <Field
+                      label="Desired weight loss"
+                      id="WeightLossField"
+                      name="WeightLossField"
+                    />
+                    <Field
+                      label="Days to achieve your goal"
+                      id="WeightGainGoal"
+                      name="WeightGainGoal"
+                    />
+                    <Select
+                      label="Current activity level"
+                      id="Activity_level"
+                      name="Activity_level"
+                    >
+                      <option value="1">Sedentary (Little or no exercise)</option>
+                      <option value="2">Lightly active (Light exercise/sports 3-5 days a week)</option>
+                      <option value="3">Moderately active (Moderate exercise/sports 3-5 days a week)</option>
+                      <option value="4">Very active (Hard exercise/sports 6-7 days a week)</option>
+                      <option value="5">Extra active (Hard exercise/sports 6-7 days a week, plus physical job)</option>
+                    </Select>
+                  </div>
+                )}
+                {/* Common fields */}
+                <button type="button" onClick={prevPage}>
+                  Previous
+                </button>
+                <button type="button" onClick={nextPage}>
+                  Next
+                </button>
+              </form>
+            </div>
+          );
+        
+      case 5:
+        // Confirmation page
+        if (cameFromHealthy) {
+          return (
+            <div>
+              {/* Confirmation page content */}
+              {/* Previous button */}
               <button type="button" onClick={prevPage}>
                 Previous
               </button>
-              <button type="button" onClick={nextPage}>
-                Next
+              {/* Submit button */}
+              <button type="submit" onClick={print}>
+                Submit
               </button>
-            </form>
-          </div>
-        );
-      case 5:
-        // Confirmation page
-        const estimatedTime = user.EstimatedTime || "2 months";
-        return (
-          <div>
-            <h1>Confirmation</h1>
-            <p>Personal Information:</p>
-            <p>Age: {user.Age}</p>
-            <p>Weight: {user.Weight}</p>
-            <p>Height: {user.Height}</p>
-            <p>Additional Information:</p>
-            <p>Food Timing: {user.Food_Timing}</p>
-            <p>Disease: {user.Disease}</p>
-            <p>Diet Preference: {user.Diet_preference}</p>
-            <p>Diet Type: {user.Diet_Type}</p>
-            {user.Diet_Type === "weight_gain" && (
-              <div>
-                <p>Desired Weight Gain: {user.WeightGainField}</p>
-                <p>Days to Achieve Goal: {user.WeightGainGoal}</p>
-                <p>Activity Level: {user.Activity_level}</p>
-              </div>
-            )}
-            {user.Diet_Type === "weight_loss" && (
-              <div>
-                <p>Desired Weight Loss: {user.WeightLossField}</p>
-                <p>Days to Achieve Goal: {user.WeightGainGoal}</p>
-                <p>Activity Level: {user.Activity_level}</p>
-              </div>
-            )}
-            <p>Estimated Time to Achieve Goal: {estimatedTime}</p>
-            <button type="button" onClick={prevPage}>
-              Previous
-            </button>
-            <button type="submit" onClick={print}>
-              Submit
-            </button>
-          </div>
-        );
+            </div>
+          );
+        } else {
+          return (
+            <div>
+              
+              {/* Previous button */}
+              <button type="button" onClick={prevPage}>
+                Previous
+              </button>
+              {/* Submit button */}
+              <button type="submit" onClick={print}>
+                Submit
+              </button>
+            </div>
+          );
+        }
       default:
         return null;
     }
