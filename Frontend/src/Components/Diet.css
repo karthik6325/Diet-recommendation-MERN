@@ -1,10 +1,4 @@
-body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: rgb(255, 247, 185);
-}
-
+/* 
 h1 {
     display: flex;
     justify-content: center;
@@ -24,10 +18,10 @@ form {
     background-color: #fe9e0d;
     padding: 2rem;
     /* Add padding to the form container */
-    border-radius: 8px;
+    /* border-radius: 8px; */
     /* Add border-radius for rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 40%;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 40%; */
     /* Add a subtle box shadow for depth */
 
     /* div {
@@ -35,7 +29,7 @@ form {
         margin-bottom: 1rem;
     } */
 
-    label {
+    /* label {
         display: block;
         color: #fff;
     }
@@ -67,5 +61,5 @@ form {
 
     textarea {
         height: 5rem;
-    }
-}
+    } */
+/* }  */
