@@ -22,8 +22,9 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={user ? <Recpie /> : <Login setLoginUser={setLoginUser} />}
+            element={user ? <Diet /> : <Login setLoginUser={setLoginUser} />}
           />
+          <Route path="/Diet" element={<Login setLoginUser={setLoginUser} />} />
           <Route path="/login" element={<Login setLoginUser={setLoginUser} />} />
           <Route path="/register" element={<Register setLoginUser={setLoginUser} />} />
         </Routes>
