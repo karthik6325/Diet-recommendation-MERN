@@ -1,8 +1,7 @@
 import "./App.css";
-import Home from "./Components/Home";
-import About from "./Components/About";
-import Contact from "./Components/Contact";
-import Footer from "./Components/Footer";
+import Home from "./elements/home";
+import About from "./elements/about";
+import Contact from "./elements/contact";
 import Diet from "./Components/Diet";
 import Login from "./Components/login/login";
 import Register from "./Components/register/register";
@@ -22,7 +21,27 @@ function App() {
         <Routes>
           <Route
             path="/"
+            element={<Home />}
+          />
+          <Route
+            path="/user"
             element={user ? <Recpie /> : <Login setLoginUser={setLoginUser} />}
+          />
+          <Route
+            path="/diet"
+            element={user ? <Recpie /> : <Login setLoginUser={setLoginUser} />}
+          />
+          <Route
+            path="/home"
+            element={<Home />}
+          />
+          <Route
+            path="/contact"
+            element={<Contact />}
+          />
+          <Route
+            path="/about"
+            element={<About />}
           />
           <Route path="/login" element={<Login setLoginUser={setLoginUser} />} />
           <Route path="/register" element={<Register setLoginUser={setLoginUser} />} />
