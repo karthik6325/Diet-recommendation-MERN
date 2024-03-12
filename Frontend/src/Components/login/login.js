@@ -28,7 +28,7 @@ const Login = ({ setLoginUser }) => {
             const token = response.data.token;
             document.cookie = `token=${token}; Path=/; HttpOnly; Secure; SameSite=Strict`;
             setLoginUser(response.data.token);
-            history("/user");
+            history("/diet");
         } catch (error) {
             toast.error("Invlid email id or password!")
             console.error(error);

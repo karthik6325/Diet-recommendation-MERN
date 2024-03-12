@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom"
 import "./Diet.css";
 
 const Field = ({ label, id, ...rest }) => (
@@ -20,6 +20,8 @@ const Select = ({ label, id, children, ...rest }) => (
 );
 
 const Diet = () => {
+  const [selectedValue, setSelectedValue] = useState('weight_gain'); 
+  const history = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [cameFromHealthy, setCameFromHealthy] = useState(false);
   const [user, setUser] = useState({
@@ -45,6 +47,16 @@ const Diet = () => {
     console.log(`Key pressed: ${name}, Value: ${value}`);
   };
 
+  const handleChange1 = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+    console.log(`Key pressed: ${name}, Value: ${value}`);
+    setSelectedValue(e.target.value);
+  };
+
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
   };
@@ -52,6 +64,10 @@ const Diet = () => {
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
   };
+
+  useEffect(()=>{
+    console.log(user)
+  },[user])
 
   const print = async (e) => {
     e.preventDefault();
@@ -61,10 +77,11 @@ const Diet = () => {
     };
 
     try {
-      const response = await axios.post(
+      const response = axios.post(
         `http://localhost:3001/api/v1/${user.Diet_Type}`,
         formData
       );
+      history("../user")
 
       console.log("Response from server:", response.data);
     } catch (error) {
@@ -82,7 +99,7 @@ const Diet = () => {
               <Field label="Age" id="Age" name="Age" />
               <Field label="Weight" id="Weight" name="Weight" />
               <Field label="Height" id="Height" name="Height" />
-              <button type="button" onClick={nextPage}>
+              <button type="button" onClick={nextPage} className="btn">
                 Next
               </button>
             </form>
@@ -102,10 +119,10 @@ const Diet = () => {
                 <option value="">None</option>
                 {/* ... Other disease options */}
               </Select>
-              <button type="button" onClick={prevPage}>
+              <button type="button" onClick={prevPage} className="btn">
                 Previous
               </button>
-              <button type="button" onClick={nextPage}>
+              <button type="button" onClick={nextPage} className="btn">
                 Next
               </button>
             </form>
@@ -115,16 +132,16 @@ const Diet = () => {
         return (
           <div>
             <h1>Diet preferences</h1>
-            <form onChange={handleChange}>
-              <Select label="Diet type" id="Diet_type" name="Diet_Type">
+            <form onChange={handleChange1}>
+              <Select label="Diet type" id="Diet_type" name="Diet_Type" defaultValue={selectedValue} >
                 <option value="weight_gain">Weight_gain</option>
                 <option value="weight_loss">Weight_loss</option>
                 <option value="healthy">Healthy</option>
               </Select>
-              <button type="button" onClick={prevPage}>
+              <button type="button" onClick={prevPage} className="btn">
                 Previous
               </button>
-              <button type="button" onClick={nextPage}>
+              <button type="button" onClick={nextPage} className="btn">
                 Next
               </button>
             </form>
@@ -193,10 +210,10 @@ const Diet = () => {
                   </div>
                 )}
                 {/* Common fields */}
-                <button type="button" onClick={prevPage}>
+                <button type="button" onClick={prevPage} className="btn">
                   Previous
                 </button>
-                <button type="button" onClick={nextPage}>
+                <button type="button" onClick={nextPage} className="btn">
                   Next
                 </button>
               </form>
@@ -229,10 +246,10 @@ const Diet = () => {
                 <p>Activity Level: {user.Activity_level}</p>
               </div>
             )}
-            <button type="button" onClick={prevPage}>
+            <button type="button" onClick={prevPage} className="btn">
               Previous
             </button>
-            <button type="submit" onClick={print}>
+            <button type="submit" onClick={print} className="btn">
               Submit
             </button>
           </div>

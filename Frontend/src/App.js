@@ -29,7 +29,7 @@ function App() {
           />
           <Route
             path="/diet"
-            element={user ? <Recpie /> : <Login setLoginUser={setLoginUser} />}
+            element={user ? <Diet /> : <Login setLoginUser={setLoginUser} />}
           />
           <Route
             path="/home"
