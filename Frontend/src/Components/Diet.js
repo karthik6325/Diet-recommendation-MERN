@@ -117,7 +117,7 @@ const Diet = () => {
           <div>
             <h1>Diet preferences</h1>
             <form onChange={handleChange}>
-              <Select label="Diet type" id="Diet_type" name="Diet_type">
+              <Select label="Diet type" id="Diet_type" name="Diet_Type">
                 <option value="weight_gain">Weight_gain</option>
                 <option value="weight_loss">Weight_loss</option>
                 <option value="healthy">Healthy</option>
