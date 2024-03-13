@@ -39,23 +39,24 @@ form option {
 
 .dropdown-select {
     display: inline-block;
-    padding: .375rem .75rem;
-    font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: black;
+    color: rgb(232, 232, 232);
+    padding: 10px 20px;
+    font-size: 1.2rem;
     /* Change the color to black */
     vertical-align: middle;
-    background-color: #fff;
+    background-color: #232323;
+    /* border-color: #6c757d; */
     background-clip: padding-box;
-    border: 1px solid #ced4da;
+    border: 1px solid #474747;
     border-radius: .25rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     width: 100%;
 }
 
 .dropdown-select:focus {
-    border-color: #80bdff;
+    border-color: #e3eefa;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
