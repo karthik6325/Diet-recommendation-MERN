@@ -1,7 +1,8 @@
-label{
-    color:#fff;
+label {
+    color: #fff;
 }
-form{
+
+form {
     display: flex;
     flex-direction: column;
     padding: 4rem 1rem;
@@ -9,11 +10,106 @@ form{
     max-width: 600px;
 }
 
-form input,form textarea{
+form input,
+form textarea,
+form option {
     margin-bottom: 1rem;
     padding: 10px 18px;
     font-size: 1.2rem;
-    background-color: rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.1);
     color: #f4f4f4;
+}
+
+
+.dropdown-toggle.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    /* Grey color */
+    border-color: #6c757d;
+    /* Grey color */
+}
+
+.dropdown-select,
+.dropdown-select option {
+    color: black;
+    /* Change the color to black */
+}
+
+
+.dropdown-select {
+    display: inline-block;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: black;
+    /* Change the color to black */
+    vertical-align: middle;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    width: 100%;
+}
+
+.dropdown-select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+
+/* .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+.btn-container {
+    display: flex;
+    gap: 90vh;
+    margin-top: 40vh;
+} */
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-bottom: 50px; /* Add padding to accommodate fixed buttons */
+    position: relative; /* Position relative for absolute positioning of buttons */
+  }
+  
+  .btn-container {
+    position: absolute;
+    bottom: 10vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px; /* Padding for spacing */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  }
+
+  .btn-container1 {
+    position: absolute;
+    bottom: 10vh;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* Align the content to the end (right side) */
+    padding: 20px; /* Padding for spacing */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  }
+  
+  
+  .btn {
+    margin: 0;
+  }
+  
+
+  h1{
+  margin-top: 10vh; /* Adjust the margin as needed */
 }
