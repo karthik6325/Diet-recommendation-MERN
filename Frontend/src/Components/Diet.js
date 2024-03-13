@@ -100,7 +100,7 @@ const Diet = () => {
   return (
     <div className="container">
       <div>
-        <h1 className="heading">Personal Information</h1>
+        <h1 className="heading1">Personal Information</h1>
         <form onChange={handleChange}>
           <label>Age</label>
           <input id="Age" name="Age" type="text" />
@@ -121,7 +121,7 @@ const Diet = () => {
         return (
           <div>
           <div>
-            <h1 className="heading">Additional Information</h1>
+            <h1 className="heading1">Additional Information</h1>
             <form>
 
               <label htmlFor="foodTiming">Food Timing</label>
@@ -164,7 +164,7 @@ const Diet = () => {
         return (
           <div>
           <div>
-            <h1 className="heading">Diet preferences</h1>
+            <h1 className="heading1">Diet preferences</h1>
             <form onChange={handleChange1}>
               {/* <Select label="Diet type" id="Diet_type" name="Diet_Type" defaultValue={selectedValue} >
                 <option value="weight_gain">Weight_gain</option>
@@ -196,7 +196,7 @@ const Diet = () => {
         return (
           <div>
           <div>
-            <h1 className="heading">Additional Details for {dietType}</h1>
+            <h1 className="heading1">Additional Details for {dietType}</h1>
 
             {/* Additional fields based on diet type */}
             {dietType === "weight_gain" && (
