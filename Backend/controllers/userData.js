@@ -25,7 +25,7 @@ exports.weightGain = async (req, res) => {
 
     console.log("Response from server:", response.data);
 
-    if (response) res.status(200).json({ message: 'Success' });
+    if (response) res.status(200).json({ message: 'Success', data: response.data.suggested_food_items});
     else res.status(400).json({ message: 'Bad request' });
   } catch (error) {
     console.error(error);
@@ -43,7 +43,7 @@ const response = await axios.post("hhttp://127.0.0.1:5000/healthy", formData);
 
     console.log("Response from server:", response.data);
 
-    if (response) res.status(200).json({ message: 'Success' });
+    if (response) res.status(200).json({ message: 'Success', data: response.data.suggested_food_items});
     else res.status(400).json({ message: 'Bad request' });
   } catch (error) {
     console.error(error);
