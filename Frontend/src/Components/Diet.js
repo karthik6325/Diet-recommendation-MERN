@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom"
 import "./form.css";
 
 const Diet = () => {
-  const [selectedValue, setSelectedValue] = useState('weight_gain');
-  const [selectedFoodTiming, setSelectedFoodTiming] = useState('')
   const history = useNavigate();
+  const [selectedValue, setSelectedValue] = useState('weight_gain');
+  const [selectedFoodTiming, setSelectedFoodTiming] = useState('Breakfast');
+  const [selectedDisease, setSelectedDisease] = useState('None')
   const [currentPage, setCurrentPage] = useState(1);
-  const [cameFromHealthy, setCameFromHealthy] = useState(false);
   const [user, setUser] = useState({
     Age: "",
     Weight: "",
@@ -42,16 +42,32 @@ const Diet = () => {
     setSelectedValue(e.target.value);
   };
 
+  const handleChange2 = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+    console.log(`Key pressed: ${name}, Value: ${value}`);
+    setSelectedFoodTiming(e.target.value);
+  };
+
+  const handleChange3 = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+    console.log(`Key pressed: ${name}, Value: ${value}`);
+    setSelectedDisease(e.target.value);
+  };
+
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
   };
 
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
-  };
-
-  const handleFoodTimingChange = (eventKey) => {
-    setSelectedFoodTiming(eventKey);
   };
 
   useEffect(() => {
@@ -64,7 +80,7 @@ const Diet = () => {
     const formData = {
       ...user,
     };
-
+    console.log("user",user);
     try {
       const response = axios.post(
         `http://localhost:3001/api/v1/${user.Diet_Type}`,
@@ -84,7 +100,7 @@ const Diet = () => {
   return (
     <div className="container">
       <div>
-        <h1>Personal Information</h1>
+        <h1 className="heading">Personal Information</h1>
         <form onChange={handleChange}>
           <label>Age</label>
           <input id="Age" name="Age" type="text" />
@@ -105,18 +121,18 @@ const Diet = () => {
         return (
           <div>
           <div>
-            <h1>Additional Information</h1>
-            <form onChange={handleChange}>
+            <h1 className="heading">Additional Information</h1>
+            <form>
 
               <label htmlFor="foodTiming">Food Timing</label>
-              <select id="foodTiming" name="Food_Timing" className="dropdown-select">
+              <select id="foodTiming" name="Food_Timing" className="dropdown-select" value={selectedFoodTiming} onChange={handleChange2}>
                 <option value="1" name="Breakfast">Breakfast</option>
                 <option value="2" name="Lunch">Lunch</option>
                 <option value="3" name="Dinner">Dinner</option>
               </select>
 
               <label htmlFor="disease">Disease</label>
-              <select id="disease" name="Disease" className="dropdown-select">
+              <select id="disease" name="Disease" className="dropdown-select" value={selectedDisease} onChange={handleChange3}>
                 <option value="" name="None">None</option>
                 <option value="hypertension" name="Hypertension">Hypertension</option>
                 <option value="obesity" name="Obesity">Obesity</option>
@@ -148,7 +164,7 @@ const Diet = () => {
         return (
           <div>
           <div>
-            <h1>Diet preferences</h1>
+            <h1 className="heading">Diet preferences</h1>
             <form onChange={handleChange1}>
               {/* <Select label="Diet type" id="Diet_type" name="Diet_Type" defaultValue={selectedValue} >
                 <option value="weight_gain">Weight_gain</option>
@@ -180,7 +196,7 @@ const Diet = () => {
         return (
           <div>
           <div>
-            <h1>Additional Details for {dietType}</h1>
+            <h1 className="heading">Additional Details for {dietType}</h1>
 
             {/* Additional fields based on diet type */}
             {dietType === "weight_gain" && (
@@ -234,48 +250,8 @@ const Diet = () => {
           <button type="button" onClick={prevPage} className="btn">
             Previous
           </button>
-          <button type="button" onClick={nextPage} className="btn">
-            Next
-          </button>
-          </div>
-          </div>
-        );
-      case 5:
-        return (
-          <div>
-
-          <form>
-            <h1>Confirmation</h1>
-            <p>Personal Information:</p>
-            <p>Age: {user.Age}</p>
-            <p>Weight: {user.Weight}</p>
-            <p>Height: {user.Height}</p>
-            <p>Additional Information:</p>
-            <p>Food Timing: {user.Food_Timing}</p>
-            <p>Disease: {user.Disease}</p>
-            <p>Diet Preference: {user.Diet_preference}</p>
-            <p>Diet Type: {user.Diet_Type}</p>
-            {user.Diet_Type === "weight_gain" && (
-              <div>
-                <p>Desired Weight Gain: {user.WeightGainField}</p>
-                <p>Days to Achieve Goal: {user.WeightGainGoal}</p>
-                <p>Activity Level: {user.Activity_level}</p>
-              </div>
-            )}
-            {user.Diet_Type === "weight_loss" && (
-              <div>
-                <p>Desired Weight Loss: {user.WeightLossField}</p>
-                <p>Days to Achieve Goal: {user.WeightLossGoal}</p>
-                <p>Activity Level: {user.Activity_level}</p>
-              </div>
-            )}
-          </form>
-          <div className="btn-container">
-          <button type="button" onClick={prevPage} className="btn">
-            Previous
-          </button>
-          <button type="button" onClick={nextPage} className="btn">
-            Next
+          <button type="button" onClick={print} className="btn">
+            Submit
           </button>
           </div>
           </div>

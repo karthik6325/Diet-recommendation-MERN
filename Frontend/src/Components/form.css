@@ -43,6 +43,7 @@ form option {
     line-height: 1.5;
     color: rgb(232, 232, 232);
     padding: 10px 20px;
+    padding-right: 10px;
     font-size: 1.2rem;
     /* Change the color to black */
     vertical-align: middle;
@@ -111,6 +112,6 @@ form option {
   }
   
 
-  h1{
+  .heading{
   margin-top: 10vh; /* Adjust the margin as needed */
 }
