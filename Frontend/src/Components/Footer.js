@@ -14,17 +14,9 @@ const Footer = () => {
                         <p>India</p>
                     </div>
                 </div>
-                <div className='email'>
-                    <h4><FaMailBulk size={20} style={{color:"#fff",marginRight:"2rem"}}/>karthik63254@gmail.com</h4>
-                </div>
             </div>
             <div className='right'>
-                <h4>About</h4>
-                <p>I am a MERN stack developer. I am always enthusiastic to learn new things.</p>
-                <div className='social'>
-                    <Link to='https://www.linkedin.com/in/karthik-h-3b6332192/'><FaLinkedin size={22} style={{color:'#fff',marginRight:'1rem'}}/></Link>
-                    <Link to='https://github.com/karthik6325'><FaGithub size={22} style={{color:'#fff',marginRight:'1rem'}}/></Link>
-                </div>
+                <p>Empowering Health Through AI: Your Personalized Wellness Companion</p>
             </div>
         </div>
     </div>
