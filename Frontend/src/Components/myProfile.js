@@ -72,7 +72,7 @@ export default function ProfilePage() {
         <MDBContainer>
           <MDBRow style={{ marginTop: '10vh' }}>
             <MDBCol lg="4">
-              <MDBCard className="mb-4" style={{ backgroundColor: 'grey' }}>
+              <MDBCard className="mb-4" style={{ backgroundColor: 'rgb(160, 160, 160)' }}>
                 <MDBCardBody className="text-center">
                   <MDBCardImage
                     src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
@@ -88,7 +88,7 @@ export default function ProfilePage() {
               </MDBCard>
             </MDBCol>
             <MDBCol lg="8">
-              <MDBCard className="mb-4" style={{ backgroundColor: 'grey' }}>
+              <MDBCard className="mb-4" style={{ backgroundColor: 'rgb(160, 160, 160)' }}>
                 <MDBCardBody>
                   <MDBRow>
                     <MDBCol sm="3">

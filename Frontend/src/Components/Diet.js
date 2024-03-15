@@ -42,6 +42,44 @@ const Diet = () => {
     return user.Diet_Type;
   };
 
+  const getDetails = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:3001/api/v1/user/details',
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+      if (response) {
+        const userData = response.data.data;
+        setUser({
+          Age: userData.Age || "",
+          Weight: userData.Weight || "",
+          Height: userData.Height || "",
+          Diet_Type: userData.Diet_Type || "weight_gain",
+          Food_Timing: userData.Food_Timing || "1",
+          Disease: userData.Disease || "None",
+          WeightGainField: userData.WeightGainField || "",
+          WeightGainGoal: userData.WeightGainGoal || "",
+          Activity_level: userData.Activity_level || "1",
+          WeightLossField: userData.WeightLossField || "",
+          WeightLossGoal: userData.WeightLossGoal || "",
+        });
+        setSelectedValue(userData.Diet_Type || "weight_gain");
+        setSelectedFoodTiming(userData.Food_Timing || "Breakfast");
+        setSelectedDisease(userData.Disease || "None");
+      }
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  };
+
+  useEffect(() => {
+    getDetails(); // Fetch user details when the component mounts
+  }, []); 
+
   const validateAdditionalDetails = () => {
     if (user.Diet_Type === "weight_gain") {
       return user.WeightGainField && user.WeightGainGoal && user.Activity_level;
@@ -173,11 +211,11 @@ const Diet = () => {
               <h1 className="heading1">Personal Information</h1>
               <form onChange={handleChange}>
                 <label>Age</label>
-                <input id="Age" name="Age" type="text" />
+                <input id="Age" name="Age" type="text" value={user.Age} />
                 <label>Weight</label>
-                <input id="Weight" name="Weight" type="text" />
+                <input id="Weight" name="Weight" type="text" value={user.Weight} />
                 <label>Height</label>
-                <input id="Height" name="Height" type="text" />
+                <input id="Height" name="Height" type="text" value={user.Height} />
               </form>
             </div>
             <div className="btn-container1">
