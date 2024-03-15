@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react"
 import "./RecipieDetails.css"
-import { useParams } from "react-router-dom"
+import { NavLink, useLocation } from 'react-router-dom';
 
-const RecipieDetails = (recipieDetail) => {
+const RecipieDetails = () => {
     const [recipieDetailparts, setRecipieDetailparts] = useState('')
     const [recipieDetailInstructions, setRecipieDetailInstructions] = useState('')
+    const [recipieDetail, setrecipieDetail] = useState('');
+    const location = useLocation();
     useEffect(() => {
-        console.log(recipieDetail.recipieDetail)
-        console.log(recipieDetail.recipieDetail.image_url)
-        console.log(recipieDetail.recipieDetail.Name)
+        // console.log(recipieDetail.recipieDetail)
+        // console.log(recipieDetail.recipieDetail.image_url)
+        // console.log(recipieDetail.recipieDetail.Name)
+        // console.log(location);
 
-        setRecipieDetailparts(parseStringArrayPreserveCommas(recipieDetail.recipieDetail.RecipeIngredientParts));
+        if(recipieDetail){setRecipieDetailparts(parseStringArrayPreserveCommas(recipieDetail.RecipeIngredientParts));
 
         // Parse RecipeIngredientParts
-        setRecipieDetailInstructions(parseStringArray(recipieDetail.recipieDetail.RecipeInstructions));
-    }, [recipieDetail.recipieDetail])
+        setRecipieDetailInstructions(parseStringArray(recipieDetail.RecipeInstructions));
+        }
+        setrecipieDetail(location.state.view);
+    }, [recipieDetail])
 
     const parseStringArray = (str) => {
         // Remove 'c()' wrapper
@@ -35,23 +40,23 @@ const RecipieDetails = (recipieDetail) => {
     return (
         <div className="recipie">
             <div className="recipie__intro">
-                <img className="recipie__backdrop" src={recipieDetail.recipieDetail.image_url} />
+                <img className="recipie__backdrop" src={recipieDetail.image_url} />
             </div>
             <div className="recipie__detail">
                 <div className="recipie__detailLeft">
                     <div className="recipie__posterBox">
-                        <img className="recipie__poster" src={recipieDetail.recipieDetail.image_url} />
+                        <img className="recipie__poster" src={recipieDetail.image_url} />
                     </div>
                 </div>
                 <div className="recipie__detailRight">
                     <div className="recipie__detailRightTop">
-                        <div className="recipie__name">{recipieDetail.recipieDetail ? recipieDetail.recipieDetail.Name : ""}</div>
-                        <div className="recipie__tagline">{recipieDetail.recipieDetail ? recipieDetailparts
+                        <div className="recipie__name">{recipieDetail ? recipieDetail.Name : ""}</div>
+                        <div className="recipie__tagline">Ingridients<br/>{recipieDetail ? recipieDetailparts
                             : ""}</div>
                     </div>
                     <div className="recipie__detailRightBottom">
                         <div className="synopsisText">Synopsis</div>
-                        <div>{recipieDetail.recipieDetail ? recipieDetailInstructions : ""}</div>
+                        <div>{recipieDetail ? recipieDetailInstructions : ""}</div>
                     </div>
 
                 </div>

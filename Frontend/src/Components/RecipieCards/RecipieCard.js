@@ -1,16 +1,17 @@
 import './Card.css';
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const RecpieCard = (props) => {
+  const location = useLocation();
   return (
     <div className='project-card'>
       <img src={props.imgsrc} alt="img" />
       <h2 className='project-title'>{props.title}</h2>
       <div className='pro-details'>
-        <p>{props.text}</p>
+        <p>Calories: {props.text}</p>
         <div className='pro-btns'>
-          <NavLink to={props.view} className='btns'>View</NavLink>
+          <NavLink to={'/recipie-details'}  state={props} className='btns'>View</NavLink>
         </div>
       </div>
     </div>
