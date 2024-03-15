@@ -20,6 +20,11 @@
     padding: 0 1rem;
 }
 
+.btnss{
+    background: rgb(248 217 15 / 0%);
+    border: 1px solid #ffffff00;
+}
+
 .nav-menu li a {
     font-size: 1.35rem;
     font-weight: 500;
@@ -28,6 +33,8 @@
 .hamburger{
     display: none;
 }
+
+
 
 @media screen and (max-width: 1040px) {
     .nav-menu {

@@ -206,9 +206,9 @@ const Recpie = () => {
     }
   };
   return (
-    <div className='work-container'>
+    <div className='work-container' >
       {/* <button onClick={handleHealthyRequest}>Click me</button> */}
-      <h1 className='project-heading'>Projects</h1>
+      <h1 className='project-heading'>Recommendations</h1>
       <div className='project-container'>
         {response!=null && response.map((val,ind)=>{
             return(
@@ -216,7 +216,7 @@ const Recpie = () => {
                 key={ind} imgsrc={val.image_url}
                 title={val.Name}
                 text={val.RecipeId}
-                view={"abc.com"}
+                view={val}
                 />
             )
         })}

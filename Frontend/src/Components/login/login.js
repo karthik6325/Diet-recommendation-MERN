@@ -3,11 +3,10 @@ import "./login.css"
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-
-const Login = ({ setLoginUser }) => {
-
+import { useLogin } from '../../Context/LoginContext';
+const Login = () => {
+    const { setLoginUser } = useLogin();
     const history = useNavigate();
-
     const [user, setUser] = useState({
         email: "",
         password: ""
@@ -28,6 +27,7 @@ const Login = ({ setLoginUser }) => {
             const token = response.data.token;
             document.cookie = `token=${token}; Path=/; HttpOnly; Secure; SameSite=Strict`;
             setLoginUser(response.data.token);
+            console.log(response.data.token)
             history("/diet");
         } catch (error) {
             toast.error("Invlid email id or password!")

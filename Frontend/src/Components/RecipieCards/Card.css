@@ -1,6 +1,8 @@
 .project-heading {
     text-align: center;
-    padding: 2rem 0; /* Adjusted the padding */
+    padding: 2rem 0;
+    padding-top: 10vh;
+    /* Adjusted the padding */
 }
 
 .project-container {
@@ -14,7 +16,7 @@
 }
 
 /* Add this CSS rule to adjust the space above the project cards */
-.project-container > button {
+.project-container>button {
     margin-bottom: 2rem;
 }
 
@@ -38,6 +40,25 @@
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 0;
+    color: black !important;
+}
+
+.btns {
+    padding: 12px 32px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    background: rgb(248, 217, 15);
+    color: #222;
+    border: 1px solid white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.btns:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: 0.3s;
 }
 
 .pro-btns .btn {

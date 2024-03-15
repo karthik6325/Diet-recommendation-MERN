@@ -7,10 +7,10 @@ import Aboutcontent from '../Components/aboutcontent';
 const about = () => {
   return (
     <div>
-      <Navbar/>
-      <Imagebgpro heading="Healthy habits, happy life" text=""/>
-      <Aboutcontent/>
-      <Footer/>
+      <Navbar />
+      <Imagebgpro heading="Healthy habits, happy life" text="" />
+      <Aboutcontent />
+      <Footer />
     </div>
   )
 }
