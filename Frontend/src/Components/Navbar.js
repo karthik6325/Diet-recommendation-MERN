@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { GiMuscleUp, GiHotMeal } from "react-icons/gi";
 import { useLogin } from '../Context/LoginContext';
+import axios from 'axios';
 
 const Navbar = () => {
     const [click, setClick] = useState(false);
@@ -24,10 +25,32 @@ const Navbar = () => {
         setClick(!click);
     };
 
-    const handleLoginClick = () => {
-        // Redirect to login page
-        // You can implement this according to your routing setup
-    };
+
+    // const clickme = async () => {
+    //     try {
+    //         const user = {
+    //             "Age": 3001,
+    //             "Weight": 1000,
+    //             "Height": 180,
+    //             "DietType": "weight_gain",
+    //             "ActivityLevel": "moderately_active"
+    //         }
+    //         const response = await axios.post(
+    //             'http://localhost:3001/api/v1/user/details',
+    //             { user },
+    //             {
+    //                 headers: {
+    //                     Authorization: `Bearer ${userToken}`,
+    //                 },
+    //             }
+    //         );
+    //         if(response) console.log("Success");
+    //         else console.error("Error!!");
+    //     } catch (error) {
+    //         console.error("Error!!");
+    //         console.error(error.response.data);
+    //     }
+    // }
 
     return (
         <div className="header">

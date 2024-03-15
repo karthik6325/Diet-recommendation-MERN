@@ -9,6 +9,14 @@
     text-align: center;
 }
 
+.register-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
 .register > input {
     border-radius: 8px;
     border: 2px solid #dddfe2;

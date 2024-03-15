@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useLogin } from '../Context/LoginContext';
+import toast from 'react-hot-toast';
 import "./form.css";
 
 const Diet = () => {
@@ -9,6 +11,7 @@ const Diet = () => {
   const [selectedFoodTiming, setSelectedFoodTiming] = useState("Breakfast");
   const [selectedDisease, setSelectedDisease] = useState("None");
   const [currentPage, setCurrentPage] = useState(1);
+  const { userToken, setLoginUser } = useLogin();
   const [user, setUser] = useState({
     Age: "",
     Weight: "",
@@ -53,25 +56,25 @@ const Diet = () => {
     switch (currentPage) {
       case 1:
         if (!validatePersonalInfo()) {
-          alert("Please fill in all fields for Personal Information");
+          toast.error("Please fill in all fields for Personal Information");
           return;
         }
         break;
       case 2:
         if (!validateAdditionalInfo()) {
-          alert("Please fill in all fields for Additional Information");
+          toast.error("Please fill in all fields for Additional Information");
           return;
         }
         break;
       case 3:
         if (!validateDietPreferences()) {
-          alert("Please select a Diet type");
+          toast.error("Please select a Diet type");
           return;
         }
         break;
       case 4:
         if (!validateAdditionalDetails()) {
-          alert("Please fill in all fields for Additional Details");
+          toast.error("Please fill in all fields for Additional Details");
           return;
         }
         break;
@@ -124,23 +127,36 @@ const Diet = () => {
     setSelectedDisease(e.target.value);
   };
 
-  const print = async (e) => {
+  const submitData = async (e) => {
     e.preventDefault();
 
-    const formData = {
-      ...user,
-    };
-    console.log("user", user);
+    // const formData = {
+    //   ...user,
+    // };
+    // console.log("user", user);
     try {
       // const response = axios.post(
       //   `http://localhost:3001/api/v1/${user.Diet_Type}`,
       //   formData
       // );
       if (!validateAdditionalDetails()) {
-        alert("Please fill in all fields for Additional Details");
+        toast.error("Please fill in all fields for Additional Details");
         return;
       }
-      else history("../user");
+      else{
+          const response = await axios.post(
+            'http://localhost:3001/api/v1/user/details',
+            { user },
+            {
+                headers: {
+                    Authorization: `Bearer ${userToken}`,
+                },
+            }
+        );
+        if(response) console.log("Success");
+        else console.error("Error!!");
+        history("../user");
+      }
 
       // console.log("Response from server:", response.data);
     } catch (error) {
@@ -314,7 +330,7 @@ const Diet = () => {
               <button type="button" onClick={prevPage} className="btn">
                 Previous
               </button>
-              <button type="button" onClick={print} className="btn">
+              <button type="button" onClick={submitData} className="btn">
                 Submit
               </button>
             </div>
