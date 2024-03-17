@@ -7,7 +7,7 @@ exports.weightLoss = async (req, res) => {
 
     const response = await axios.post("http://127.0.0.1:5000/weight_loss", formData)
 
-    console.log("Response from server:", response.data);
+    console.log("Response from server:", response.data.suggested_food_items);
 
     if(response) res.status(200).json({ message: 'Success' , data: response.data.suggested_food_items});
     else res.status(400).json({ message: 'Bad request' });
@@ -39,7 +39,7 @@ exports.healthy = async (req, res) => {
   try {
     const formData = req.body;
 
-const response = await axios.post("hhttp://127.0.0.1:5000/healthy", formData);
+const response = await axios.post("http://127.0.0.1:5000/healthy", formData);
 
     console.log("Response from server:", response.data);
 

@@ -9,7 +9,7 @@ const RecpieCard = (props) => {
       <img src={props.imgsrc} alt="img" />
       <h2 className='project-title'>{props.title}</h2>
       <div className='pro-details'>
-        <p>Calories: {props.text}</p>
+        <p></p>
         <div className='pro-btns'>
           <NavLink to={'/recipie-details'}  state={props} className='btns'>View</NavLink>
         </div>

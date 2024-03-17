@@ -13,13 +13,13 @@ exports.createUser = async (req, res) => {
             // If user data doesn't exist, create a new document
             userData = new UserData({
                 Name: userName.name,
-                user: req.user.userId, 
-                Age: req.body.user.Age,
-                Weight: req.body.user.Weight,
-                Height: req.body.user.Height,
-                Disease: req.body.user.Disease,
-                Diet_Type: req.body.user.Diet_Type,
-                Activity_level: req.body.user.Activity_level,
+                user: req.data.userId, 
+                Age: req.body.data.Age,
+                Weight: req.body.data.Weight,
+                Height: req.body.data.Height,
+                Disease: req.body.data.Disease,
+                Diet_Type: req.body.data.Diet_Type,
+                Activity_level: req.body.data.Activity_level,
             });
             
             // Save the new user data
@@ -30,12 +30,12 @@ exports.createUser = async (req, res) => {
         } else {
             // If user data already exists, update the existing document
             userData.Name = userName.name;
-            userData.Age = req.body.user.Age;
-            userData.Weight = req.body.user.Weight;
-            userData.Height = req.body.user.Height;
-            userData.Disease = req.body.user.Disease;
-            userData.Diet_Type = req.body.user.Diet_Type;
-            userData.Activity_level = req.body.user.Activity_level;
+            userData.Age = req.body.data.Age;
+            userData.Weight = req.body.data.Weight;
+            userData.Height = req.body.data.Height;
+            userData.Disease = req.body.data.Disease;
+            userData.Diet_Type = req.body.data.Diet_Type;
+            userData.Activity_level = req.body.data.Activity_level;
 
             // Save the updated user data
             const response = await userData.save();

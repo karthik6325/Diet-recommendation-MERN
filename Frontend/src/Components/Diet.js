@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import { useLogin } from '../Context/LoginContext';
 import toast from 'react-hot-toast';
 import "./form.css";
@@ -173,27 +173,32 @@ const Diet = () => {
     // };
     // console.log("user", user);
     try {
-      // const response = axios.post(
-      //   `http://localhost:3001/api/v1/${user.Diet_Type}`,
-      //   formData
-      // );
       if (!validateAdditionalDetails()) {
         toast.error("Please fill in all fields for Additional Details");
         return;
       }
       else{
-          const response = await axios.post(
-            'http://localhost:3001/api/v1/user/details',
-            { user },
-            {
-                headers: {
-                    Authorization: `Bearer ${userToken}`,
-                },
-            }
-        );
-        if(response) console.log("Success");
-        else console.error("Error!!");
-        history("../user");
+        //   const res = await axios.post(
+        //     `http://localhost:3001/api/v1/${user.Diet_Type}`,
+        //     { user },
+        //     {
+        //         headers: {
+        //             Authorization: `Bearer ${userToken}`,
+        //         },
+        //     }
+        //   );
+        //   const response = axios.post(
+        //     'http://localhost:3001/api/v1/user/details',
+        //     { user },
+        //     {
+        //         headers: {
+        //             Authorization: `Bearer ${userToken}`,
+        //         },
+        //     }
+        // );
+        // if(res) console.log("Success");
+        // else console.error("Error!!");
+        //  history("../user");
       }
 
       // console.log("Response from server:", response.data);
@@ -368,9 +373,10 @@ const Diet = () => {
               <button type="button" onClick={prevPage} className="btn">
                 Previous
               </button>
-              <button type="button" onClick={submitData} className="btn">
+              {/* <button type="button" onClick={submitData} className="btn">
                 Submit
-              </button>
+              </button> */}
+              <NavLink to={'/user'}  state={user} className='btn' >Submit</NavLink>
             </div>
           </div>
         );

@@ -1,10 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Card.css';
 import React from 'react'
 import RecpieCard from './RecipieCard';
+import { useLocation } from 'react-router-dom';
+import { useLogin } from '../../Context/LoginContext';
+import axios from 'axios';
+import Loader from './Loader';
 
 
 const Recpie = () => {
+  const location = useLocation();
+  const data = location.state;
+  const [response, setResponse] = useState();
+  const { userToken, setLoginUser } = useLogin();
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    handleHealthyRequest();
+    //console.log(data);
+  }, [])
   const defaultResponse = [
     {
       Calories: 505.8,
@@ -14,7 +27,7 @@ const Recpie = () => {
       CookTime: 0,
       FatContent: 18.9,
       FiberContent: 0,
-      Name: "Caputo's Halibut With Mint and Balsamic Vinegar", 
+      Name: "Caputo's Halibut With Mint and Balsamic Vinegar",
       PrepTime: 10,
       ProteinContent: 75.8,
       RecipeId: 105,
@@ -54,7 +67,7 @@ const Recpie = () => {
       CookTime: 0,
       FatContent: 18.9,
       FiberContent: 0,
-      Name: "Caputo's Halibut With Mint and Balsamic Vinegar", 
+      Name: "Caputo's Halibut With Mint and Balsamic Vinegar",
       PrepTime: 10,
       ProteinContent: 75.8,
       RecipeId: 105,
@@ -94,7 +107,7 @@ const Recpie = () => {
       CookTime: 0,
       FatContent: 18.9,
       FiberContent: 0,
-      Name: "Caputo's Halibut With Mint and Balsamic Vinegar", 
+      Name: "Caputo's Halibut With Mint and Balsamic Vinegar",
       PrepTime: 10,
       ProteinContent: 75.8,
       RecipeId: 105,
@@ -134,7 +147,7 @@ const Recpie = () => {
       CookTime: 0,
       FatContent: 18.9,
       FiberContent: 0,
-      Name: "Caputo's Halibut With Mint and Balsamic Vinegar", 
+      Name: "Caputo's Halibut With Mint and Balsamic Vinegar",
       PrepTime: 10,
       ProteinContent: 75.8,
       RecipeId: 105,
@@ -169,58 +182,98 @@ const Recpie = () => {
     // Add more default items here if needed
   ];
 
-  const [response, setResponse] = useState(defaultResponse);
-  
+  // const handleHealthyRequest = async () => {
+  //   try {
+  //     const data = {
+  //       "Age": 30,
+  //       "Weight": 70.5,
+  //       "Height": 175.0,
+  //       "Food_Timing": 2,
+  //       "Disease": "heart_disease",
+  //       "Desired_Gain_Kg": 5.0,
+  //       "Num_Days": 30,
+  //       "Activity_Level": 3
+  //     }
+
+
+
+  //     const response = await fetch('http://localhost:3001/api/v1/weight_gain', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+
+  //     const jsonResponse = await response.json();
+  //     setResponse(jsonResponse.data);
+  //     console.log(jsonResponse.data);
+  //   } catch (error) {
+  //     console.error('Error making the POST request:', error.message);
+  //   }
+  // };
+
   const handleHealthyRequest = async () => {
     try {
-      const data = {
-        "Age": 30,
-        "Weight": 70.5,
-        "Height": 175.0,
-        "Food_Timing": 2,
-        "Disease": "heart_disease",
-        "Desired_Gain_Kg": 5.0,
-        "Num_Days": 30,
-        "Activity_Level": 3
-      }
-      
-      
+      setLoading(true); // Set loading to true when making the request
 
-      const response = await fetch('http://localhost:3001/api/v1/weight_gain', {
+      axios.post(
+        'http://localhost:3001/api/v1/user/details',
+        { data },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+
+
+
+      const res = await fetch(`http://localhost:3001/api/v1/${data.Diet_Type}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      if (res) {
+        const jsonResponse = await res.json();
+        console.log(jsonResponse.data)
+        setResponse(jsonResponse.data)
+        console.log("Success");
       }
 
-      const jsonResponse = await response.json();
-      setResponse(jsonResponse.data);
-      console.log(jsonResponse.data);
+      setLoading(false); // Set loading to false after receiving the response
     } catch (error) {
       console.error('Error making the POST request:', error.message);
+      setLoading(false); // Set loading to false if an error occurs
     }
   };
+
   return (
     <div className='work-container' >
-      {/* <button onClick={handleHealthyRequest}>Click me</button> */}
+      {/* Loader */}
+
       <h1 className='project-heading'>Recommendations</h1>
       <div className='project-container'>
-        {response!=null && response.map((val,ind)=>{
-            return(
-                <RecpieCard 
-                key={ind} imgsrc={val.image_url}
-                title={val.Name}
-                text={val.RecipeId}
-                view={val}
-                />
+        {/* Render recipe cards */}
+        {response != null && response.map((val, ind) => {
+          return (
+            <RecpieCard
+            key={ind}
+            imgsrc={val.image_url}
+            title={val.Name}
+            text={val.RecipeId}
+            view={val}
+            />
             )
-        })}
+          })}
       </div>
+      {loading && <Loader />} 
     </div>
   )
 }
