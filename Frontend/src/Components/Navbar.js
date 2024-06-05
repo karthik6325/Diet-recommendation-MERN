@@ -80,7 +80,7 @@ const Navbar = () => {
                                 <Dropdown.Menu style={{ backgroundColor: 'grey' }}>
                                     <Dropdown.Item href="./profile"><FaUser /> My profile</Dropdown.Item>
                                     <Dropdown.Item href="./diet"><GiHotMeal /> Diet recommendation</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3"><GiMuscleUp /> Excercise detection</Dropdown.Item>
+                                    <Dropdown.Item href="http://127.0.0.1:5000"><GiMuscleUp /> Excercise detection</Dropdown.Item>
                                     <Dropdown.Divider />
                                     <Dropdown.Item href="./home" onClick={handleLogout}><FaSignOutAlt />  Log out</Dropdown.Item>
                                 </Dropdown.Menu>

@@ -6,16 +6,18 @@ import toast from 'react-hot-toast';
 import "./form.css";
 
 const Diet = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState("weight_gain");
-  const [selectedFoodTiming, setSelectedFoodTiming] = useState("Breakfast");
+  const [selectedFoodTiming, setSelectedFoodTiming] = useState("1");
   const [selectedDisease, setSelectedDisease] = useState("None");
+  const [selectedGender, setSelectedGender] = useState("1");
   const [currentPage, setCurrentPage] = useState(1);
   const { userToken, setLoginUser } = useLogin();
   const [user, setUser] = useState({
     Age: "",
     Weight: "",
     Height: "",
+    Gender: "1",
     Diet_Type: "weight_gain",
     Food_Timing: "1",
     Disease: "None",
@@ -54,10 +56,12 @@ const Diet = () => {
       );
       if (response) {
         const userData = response.data.data;
+        console.log("userdata",userData)
         setUser({
           Age: userData.Age || "",
           Weight: userData.Weight || "",
           Height: userData.Height || "",
+          Gender: userData.Gender || "1",
           Diet_Type: userData.Diet_Type || "weight_gain",
           Food_Timing: userData.Food_Timing || "1",
           Disease: userData.Disease || "None",
@@ -68,8 +72,9 @@ const Diet = () => {
           WeightLossGoal: userData.WeightLossGoal || "",
         });
         setSelectedValue(userData.Diet_Type || "weight_gain");
-        setSelectedFoodTiming(userData.Food_Timing || "Breakfast");
+        setSelectedFoodTiming(userData.Food_Timing || "1");
         setSelectedDisease(userData.Disease || "None");
+        setSelectedGender(userData.Gender || "1");
       }
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -155,6 +160,16 @@ const Diet = () => {
     setSelectedFoodTiming(e.target.value);
   };
 
+  const handleChange4 = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+    console.log(`Key pressed: ${name}, Value: ${value}`);
+    setSelectedGender(e.target.value);
+  };
+
   const handleChange3 = (e) => {
     const { name, value } = e.target;
     setUser({
@@ -168,16 +183,12 @@ const Diet = () => {
   const submitData = async (e) => {
     e.preventDefault();
 
-    // const formData = {
-    //   ...user,
-    // };
-    // console.log("user", user);
     try {
       if (!validateAdditionalDetails()) {
         toast.error("Please fill in all fields for Additional Details");
         return;
       }
-      else{
+      else {
         //   const res = await axios.post(
         //     `http://localhost:3001/api/v1/${user.Diet_Type}`,
         //     { user },
@@ -198,7 +209,7 @@ const Diet = () => {
         // );
         // if(res) console.log("Success");
         // else console.error("Error!!");
-        //  history("../user");
+        //  navigate("../user");
       }
 
       // console.log("Response from server:", response.data);
@@ -221,6 +232,17 @@ const Diet = () => {
                 <input id="Weight" name="Weight" type="text" value={user.Weight} />
                 <label>Height</label>
                 <input id="Height" name="Height" type="text" value={user.Height} />
+                <label htmlFor="gender">Gender</label>
+                <select
+                  id="gender"
+                  name="Gender"
+                  className="dropdown-select"
+                  value={selectedGender}
+                  onChange={handleChange4}
+                >
+                  <option value="1">Male</option>
+                  <option value="0">Female</option>
+                </select>
               </form>
             </div>
             <div className="btn-container1">
@@ -244,33 +266,27 @@ const Diet = () => {
                   value={selectedFoodTiming}
                   onChange={handleChange2}
                 >
-                  <option value="1" name="Breakfast">
-                    Breakfast
-                  </option>
-                  <option value="2" name="Lunch">
-                    Lunch
-                  </option>
-                  <option value="3" name="Dinner">
-                    Dinner
-                  </option>
+                  <option value="1">Breakfast</option>
+                  <option value="2">Lunch</option>
+                  <option value="3">Dinner</option>
                 </select>
 
                 <label htmlFor="disease">Disease</label>
                 <select id="disease" name="Disease" className="dropdown-select" value={selectedDisease} onChange={handleChange3}>
-                  <option value="" name="None">None</option>
-                  <option value="hypertension" name="Hypertension">Hypertension</option>
-                  <option value="obesity" name="Obesity">Obesity</option>
-                  <option value="diabetes" name="Diabetes">Diabetes</option>
-                  <option value="kidney_disease" name="Kidney Disease">Kidney Disease</option>
-                  <option value="rickets" name="Rickets">Rickets</option>
-                  <option value="scurvy" name="Scurvy">Scurvy</option>
-                  <option value="anemia" name="Anemia">Anemia</option>
-                  <option value="goitre" name="Goitre">Goitre</option>
-                  <option value="eye_disease" name="Eye Disease">Eye Disease</option>
-                  <option value="low_blood_pressure" name="Low Blood Pressure">Low Blood Pressure</option>
-                  <option value="thyroid" name="Thyroid">Thyroid</option>
-                  <option value="cholera" name="Cholera">Cholera</option>
-                  <option value="malnutrition" name="Malnutrition">Malnutrition</option>
+                  <option value="None">None</option>
+                  <option value="hypertension">Hypertension</option>
+                  <option value="obesity">Obesity</option>
+                  <option value="diabetes">Diabetes</option>
+                  <option value="kidney_disease">Kidney Disease</option>
+                  <option value="rickets">Rickets</option>
+                  <option value="scurvy">Scurvy</option>
+                  <option value="anemia">Anemia</option>
+                  <option value="goitre">Goitre</option>
+                  <option value="eye_disease">Eye Disease</option>
+                  <option value="low_blood_pressure">Low Blood Pressure</option>
+                  <option value="thyroid">Thyroid</option>
+                  <option value="cholera">Cholera</option>
+                  <option value="malnutrition">Malnutrition</option>
                 </select>
               </form>
             </div>
@@ -373,9 +389,6 @@ const Diet = () => {
               <button type="button" onClick={prevPage} className="btn">
                 Previous
               </button>
-              {/* <button type="button" onClick={submitData} className="btn">
-                Submit
-              </button> */}
               <NavLink to={'/user'}  state={user} className='btn' >Submit</NavLink>
             </div>
           </div>
@@ -389,4 +402,3 @@ const Diet = () => {
 };
 
 export default Diet;
-

@@ -28,14 +28,19 @@ const Register = () => {
             const { name, email, password, reEnterPassword } = user
             if (name && email && password && (password === reEnterPassword)) {
                 const response = await axios.post('http://localhost:3001/api/v1/register', user);
-                history('/login');
-                toast.success("Registered successfully!")
+                if(response.status==201){
+                    history('/login');
+                    toast.success("Registered successfully!")
+                }
+                else{
+                    toast.error("User already registered!");
+                }
             }
             else {
                 toast.error("Invlid input!")
             }
         } catch (error) {
-            console.error(error);
+            toast.error("User already registered!");
         }
 
     }

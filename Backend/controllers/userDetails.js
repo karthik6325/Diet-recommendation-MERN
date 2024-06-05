@@ -13,10 +13,11 @@ exports.createUser = async (req, res) => {
             // If user data doesn't exist, create a new document
             userData = new UserData({
                 Name: userName.name,
-                user: req.data.userId, 
+                user: userName._id, 
                 Age: req.body.data.Age,
                 Weight: req.body.data.Weight,
                 Height: req.body.data.Height,
+                Gender: req.body.data.Gender,
                 Disease: req.body.data.Disease,
                 Diet_Type: req.body.data.Diet_Type,
                 Activity_level: req.body.data.Activity_level,
@@ -33,6 +34,7 @@ exports.createUser = async (req, res) => {
             userData.Age = req.body.data.Age;
             userData.Weight = req.body.data.Weight;
             userData.Height = req.body.data.Height;
+            userData.Gender = req.body.data.Gender,
             userData.Disease = req.body.data.Disease;
             userData.Diet_Type = req.body.data.Diet_Type;
             userData.Activity_level = req.body.data.Activity_level;

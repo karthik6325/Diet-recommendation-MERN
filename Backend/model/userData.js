@@ -10,6 +10,7 @@ const userDataSchema = new mongoose.Schema({
     Age: Number,
     Weight: Number,
     Height: Number,
+    Gender: Number,
     Disease: String,
     Diet_Type: String,
     Activity_level: String,

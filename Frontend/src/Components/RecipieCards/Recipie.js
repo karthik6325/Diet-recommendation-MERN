@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useLogin } from '../../Context/LoginContext';
 import axios from 'axios';
 import Loader from './Loader';
+import toast from 'react-hot-toast';
 
 
 const Recpie = () => {
@@ -220,7 +221,7 @@ const Recpie = () => {
   const handleHealthyRequest = async () => {
     try {
       setLoading(true); // Set loading to true when making the request
-
+  
       axios.post(
         'http://localhost:3001/api/v1/user/details',
         { data },
@@ -230,9 +231,15 @@ const Recpie = () => {
           },
         }
       );
-
-
-
+  
+      if (data.Diet_Type === "weight_gain" || data.Diet_Type === "weight_loss") {
+        if (data.WeightGainField / data.WeightGainGoal >= 1) {
+          toast.error(`Healthy ${data.Diet_Type} is not possible for your current preference!`);
+          setLoading(false); // Set loading to false before returning
+          return;
+        }
+      }
+  
       const res = await fetch(`http://localhost:3001/api/v1/${data.Diet_Type}`, {
         method: 'POST',
         headers: {
@@ -240,19 +247,22 @@ const Recpie = () => {
         },
         body: JSON.stringify(data),
       });
+  
       if (res) {
         const jsonResponse = await res.json();
-        console.log(jsonResponse.data)
-        setResponse(jsonResponse.data)
+        console.log(jsonResponse.data);
+        setResponse(jsonResponse.data);
+        if (jsonResponse.data.length === 0) toast.error("No diet available for your preference!");
         console.log("Success");
       }
-
+  
       setLoading(false); // Set loading to false after receiving the response
     } catch (error) {
       console.error('Error making the POST request:', error.message);
       setLoading(false); // Set loading to false if an error occurs
     }
   };
+  
 
   return (
     <div className='work-container' >
