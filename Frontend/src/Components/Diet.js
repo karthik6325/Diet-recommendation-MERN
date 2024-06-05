@@ -77,6 +77,9 @@ const Diet = () => {
         setSelectedGender(userData.Gender || "1");
       }
     } catch (error) {
+      if(error.response.status===403){
+        setLoginUser('')
+      }
       console.error("Error fetching user details:", error);
     }
   };
@@ -275,18 +278,15 @@ const Diet = () => {
                 <select id="disease" name="Disease" className="dropdown-select" value={selectedDisease} onChange={handleChange3}>
                   <option value="None">None</option>
                   <option value="hypertension">Hypertension</option>
-                  <option value="obesity">Obesity</option>
                   <option value="diabetes">Diabetes</option>
-                  <option value="kidney_disease">Kidney Disease</option>
+                  <option value="arthritis">Arthritis</option>
                   <option value="rickets">Rickets</option>
                   <option value="scurvy">Scurvy</option>
                   <option value="anemia">Anemia</option>
                   <option value="goitre">Goitre</option>
-                  <option value="eye_disease">Eye Disease</option>
-                  <option value="low_blood_pressure">Low Blood Pressure</option>
+                  <option value="low_blood_pressure">Hypotension</option>
                   <option value="thyroid">Thyroid</option>
                   <option value="cholera">Cholera</option>
-                  <option value="malnutrition">Malnutrition</option>
                 </select>
               </form>
             </div>
